@@ -2416,29 +2416,282 @@ msg.guild.createChannel(args.join(' '), 'voice');
 });
 
 
-client.on('message', message => {
-  if(message.content.includes('discord.gg')){
-                                          if(!message.channel.guild) return message.reply('** advertising me on DM ? 🤔   **');
-      if (!message.member.hasPermissions(['ADMINISTRATOR'])){
-      message.delete()
-  return message.reply(`** Not allowed to advertising Here :angry: ! **`)
-  }
-}
+
+
+
+
+
+
+var guilds = {};
+client.on('message',async message => {
+ var prefix2 = '-';//البرفكس
+  if(message.content.startsWith(prefix2 + "تقديم")) {
+ 
+if(!message.channel.guild) return message.reply(' ');
+ 
+ 
+  let submite = message.guild.channels.find(`name`, "التقديمات");
+ 
+  if(!submite) return message.channel.send("❌لم اجد الروم الخاص بالتقديمات");
+ 
+    let filter = m => m.author.id === message.author.id;
+ 
+    let thisMessage;
+ 
+    let thisFalse;
+ 
+    message.channel.send('✿ **| من فضلك اكتب اسمك الأن... ✏ **').then(msg => {
+ 
+ 
+ 
+    message.channel.awaitMessages(filter, {
+ 
+      max: 1,
+ 
+      time: 90000,
+ 
+      errors: ['time']
+ 
+    })
+ 
+    .then(collected => {
+ 
+      collected.first().delete();
+ 
+      thisMessage = collected.first().content;
+ 
+      let boi;
+ 
+      msg.edit('✿ **| من فضلك اكتب عمرك  الأن... ✏ **').then(msg => {
+ 
+ 
+ 
+          message.channel.awaitMessages(filter, {
+ 
+            max: 1,
+ 
+            time: 90000,
+ 
+            errors: ['time']
+ 
+          })
+ 
+          .then(collected => {
+ 
+            collected.first().delete();
+ 
+            boi = collected.first().content;
+ 
+            let boi2;
+ 
+            msg.edit('✿ **| من فضلك اكتب من اي بلد انت الأن... ✏ **').then(msg => {
+ 
+ 
+ 
+		    
+		    
+		    
+		    
+          message.channel.awaitMessages(filter, {
+ 
+            max: 1,
+ 
+            time: 90000,
+ 
+            errors: ['time']
+ 
+          })
+ 
+          .then(collected => {
+ 
+            collected.first().delete();
+ 
+            boi = collected.first().content;
+ 
+            let boi3;
+ 
+            msg.edit('✿ **| هل تملك مايك ؟ .. ✏ **').then(msg => {
+ 
+		    
+		    
+		    
+		     message.channel.awaitMessages(filter, {
+ 
+            max: 1,
+ 
+            time: 90000,
+ 
+            errors: ['time']
+ 
+          })
+ 
+          .then(collected => {
+ 
+            collected.first().delete();
+ 
+            boi = collected.first().content;
+ 
+            let boi4;
+ 
+            msg.edit('✿ **| بأيش ممكن تفيدنا ؟.. ✏ **').then(msg => {
+ 
+		    
+		    
+		    
+		    
+		    
+		    	     message.channel.awaitMessages(filter, {
+ 
+            max: 1,
+ 
+            time: 90000,
+ 
+            errors: ['time']
+ 
+          })
+ 
+          .then(collected => {
+ 
+            collected.first().delete();
+ 
+            boi = collected.first().content;
+ 
+            let boi5;
+ 
+            msg.edit('✿ **| من وين جبت رابط السيرفر ؟ .. ✏ **').then(msg => {
+ 
+		    
+		    
+		    
+		     	     message.channel.awaitMessages(filter, {
+ 
+            max: 1,
+ 
+            time: 90000,
+ 
+            errors: ['time']
+ 
+          })
+ 
+          .then(collected => {
+ 
+            collected.first().delete();
+ 
+            boi = collected.first().content;
+ 
+            let boi6;
+ 
+            msg.edit('✿ **| هل كنت مساعد في سيرفر اخر ؟  .. ✏ **').then(msg => {
+ 
+		    
+		    
+		    
+		    
+              message.channel.awaitMessages(filter, {
+ 
+                max: 1,
+ 
+                time: 90000,
+ 
+                errors: ['time']
+ 
+              })
+ 
+              .then(collected => {
+ 
+                collected.first().delete();
+ 
+              boi2 = collected.first().content;
+ 
+      msg.edit('🛡 **| [ هل انت متأكد من تقديمك؟ | [ نعم ] او [ لا**');
+ 
+ message.channel.awaitMessages(response => response.content === 'نعم' || 'لا' && filter,{
+ 
+        max: 1,
+ 
+        time: 90000,
+ 
+        errors: ['time']
+ 
+      })
+ 
+      .then(collected => {
+ 
+        if(collected.first().content === 'لا') {
+ 
+          msg.delete();
+ 
+          message.delete();
+ 
+          thisFalse = false;
+ 
+        }
+ 
+        if(collected.first().content === 'نعم') {
+ 
+          if(thisFalse === false) return;
+ 
+          msg.edit('🕊 **| Done ✅, تم بنجاح نشر تقديم في روم التقديمات**');
+ 
+          collected.first().delete();
+ 
+          submite.send(`@everyone | @here
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+**[ ${message.guild.name}:arrow_down: ] Submite⬇**
+ 
+[**اسم المقدم**]:
+${thisMessage}
+ 
+[**عمره**]:
+${boi}
+ 
+[**من بلد**]:
+${boi2}
+ 
+[**هل تملك مايك**]:
+${boi3}
+ 
+[**بأيش ممكن تفيدنا**]:
+${boi4}
+
+
+[**من وين جبت رابط السيرفر**]:
+${boi5}
+
+
+
+[**هل كنت مساعد في سيرفر اخر**]:
+${boi6}
+
+
+
+[**تم التقديم بواسطة**]:
+${message.author}
+ 
+[**ايدي المقدم**]:
+${message.author.id}`);
+ 
+        }
+ 
+      }
+ 
+  );
+ 
 });
-
-
-client.on('guildCreate', guild => {
-    var embed = new Discord.RichEmbed()
-    .setColor(0x5500ff)
-    .setDescription(`**شكراً لك لإضافه البوت الى سيرفرك**`)
-        guild.owner.send(embed)
+ 
+    });
+ 
+  }
+ 
+    );
+ 
   });
-
-
-
-
-
-
+ 
+}
+ 
+);
+ 
+    })}});
 
 
 
