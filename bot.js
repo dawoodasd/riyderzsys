@@ -2569,6 +2569,56 @@ B.react('🇧🇭').then(() => B.react('🇧🇭'))
 
 
 
+client.on("message",async msg => {
+ let men = msg.guild.member(msg.mentions.users.first())
+  let role = msg.guild.roles.find (r => r.name === "انذار");
+if(msg.content.startsWith(prefix + "warn")) {
+ {
+     if(!men) {
+       msg.channel.send("**منشن عضو**");
+       return;
+     }
+  
+await men.addRole(role)
+                
+
+}
+}
+});
+
+client.on("message",async msg => {
+ let men = msg.guild.member(msg.mentions.users.first())
+  let role = msg.guild.roles.find (r => r.name === "2انذار");
+if(msg.content.startsWith(prefix + "warn2")) {
+ {
+     if(!men) {
+       msg.channel.send("**منشن عضو**");
+       return;
+     }
+  
+await men.addRole(role)
+                
+
+}
+}
+});
+
+client.on("message",async msg => {
+ let men = msg.guild.member(msg.mentions.users.first())
+  let role = msg.guild.roles.find (r => r.name === "3انذار");
+if(msg.content.startsWith(prefix + "warn3")) {
+ {
+     if(!men) {
+       msg.channel.send("**منشن عضو**");
+       return;
+     }
+  
+await men.addRole(role)
+                
+
+}
+}
+});
 
 
 
