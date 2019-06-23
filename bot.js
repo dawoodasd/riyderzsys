@@ -2446,5 +2446,31 @@ client.on('message', message => {
 
 
 
+
+
+
+
+
+
+client.on('message', msg => {
+   if(msg.content === "-الأردن") {
+var embed20 = new Discord.RichEmbed()
+.setTitle("🇯🇴 🕌 الاذان في الأردن 🕌 🇯🇴")
+.setImage("https://cdn.discordapp.com/attachments/499383925924429837/502496095570624533/unknown.png")
+msg.channel.sendEmbed(embed20).then(J => {
+J.react('🇯🇴').then(() => J.react('🇯🇴'))
+})
+   }
+ });
+
+
+
+
+
+
+
+
+
+
 client.login(process.env.BOT_TOKEN);
 
