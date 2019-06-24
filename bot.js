@@ -16,40 +16,6 @@ client.on('ready', () => {
 
 
 
-client.on('guildMemberAdd', member => {
-  member.guild.fetchInvites().then(guildInvites => {
-    const ei = invites[member.guild.id];
-    const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
-    const inviter = client.users.get(invite.inviter.id);
-    const xkiller = member.guild.channels.find("name", "🌈⇅chat-شــات");
-     xkiller.send(`<@${member.user.id}> تمت الدعوه من <@${inviter.id}>`);
-  });
-});
-
-
-
-
-client.on('message', async message => {
-  let messageArray = message.content.split(' ');
-  let args = messageArray.slice(1);
-  if(message.content.startsWith(prefix + "invinfo")) {
-    if(!args) return message.reply('**حدد اسم دعوة**');
-    message.guild.fetchInvites().then(i => {
-      let inv = i.get(args[0]);
-      if(!inv) return message.reply(`**لم اقدر على ايجاد ${args}**`);
-      var iNv = new Discord.RichEmbed()
-      .setAuthor(message.author.username,message.author.avatarURL)
-      .setThumbnail(message.author.avatarURL)
-      .addField('# - صاحب الدعوة',inv.inviter,true)
-      .addField('# - روم الدعوة',inv.channel,true)
-      .addField('# - تاريخ انتهاء الدعوة',moment(inv.expiresAt).format('YYYY/M/DD:h'),true)
-      .addField('# - تم انشاء الدعوة',moment(inv.createdAt).format('YYYY/M/DD:h'),true)
-      .addField('# - مدة الدعوة',moment(inv.maxAge).format('DD **ساعة** h **يوم**'),true)
-      .addField('# - الاستخدامات',inv.uses || inv.maxUses,true)
-      message.channel.send(iNv);
-    });
-  }
-}); //Toxic Codes//Toxic Codes//Toxic Codes
 
 
 
@@ -95,21 +61,6 @@ client.on('message', message => { //Toxic Codes
 
 
 
-client.on('messageReactionRemove', (reaction) => {
-  const embed = new Discord.RichEmbed()
-  .setTitle(`Reaction Removed`)
-  .setDescription(`**Reaction Message:-** ${reaction.message.content} \n **Reaction Emoji:-** ${reaction.emoji} \n **Reaction Message ID:-** ${reaction.message.id} \n **Reaction Message Channel:-** ${reaction.message.channel.name} \n **Reactions Count:-** ${reaction.count}`)
-  client.channels.get('CHANNEL ID').send({embed : embed}).catch(e => console.log(e))
-})
-
-
-
-client.on('messageReactionAdd', (reaction) => {
-  const embed = new Discord.RichEmbed()
-  .setTitle(`New Reaction`)
-  .setDescription(`**Reaction Message:-** ${reaction.message.content} \n **Reaction Emoji:-** ${reaction.emoji} \n **Reaction Message ID:-** ${reaction.message.id} \n **Reaction Message Channel:-** ${reaction.message.channel.name} \n **Reactions Count:-** ${reaction.count}`)
-  client.channels.get('CHANNEL ID').send({embed : embed}).catch(e => console.log(e))
-})
 
 
 
