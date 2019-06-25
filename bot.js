@@ -2469,7 +2469,7 @@ client.on('message', async message => {
      category : 'click here',
       channel : 'click here'
        }
-        if(message.content.startsWith('#temp on')){
+        if(message.content.startsWith('-temp on')){
          if(!message.member.hasPermission(`MANAGE_GUILD`)) return;
           var ggg= message.guild.createChannel('click here', 'category').then(cg => {
            var ccc =message.guild.createChannel('click here', 'voice').then(ch => {
