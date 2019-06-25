@@ -2460,7 +2460,7 @@ message.channel.send(`**⛔ The AntiBots Is __𝐎𝐅𝐅__ !**`)
 
 
 
-const temp = JSON.parse(fs.readFileSync('./temp.json', 'utf8'));
+
 client.on('message', async message => {
  if(message.channel.type === "dm") return;
   if(message.author.bot) return;
