@@ -2549,5 +2549,78 @@ client.on('message', async message => {
 
 
 
+
+client.on('message', async message => {
+            if(message.content.includes('discord.gg')){ 
+                if(message.member.hasPermission("MANAGE_GUILD")) return;
+        if(!message.channel.guild) return;
+        message.delete()
+          var command = message.content.split(" ")[0];
+    let muterole = message.guild.roles.find(`name`, "Muted");
+    if(!muterole){
+      try{
+        muterole = await message.guild.createRole({
+          name: "Muted",
+          color: "#000000",
+          permissions:[]
+        })
+        message.guild.channels.forEach(async (channel, id) => {
+          await channel.overwritePermissions(muterole, {
+            SEND_MESSAGES: false,
+            ADD_REACTIONS: false
+          });
+        });
+      }catch(e){
+        console.log(e.stack);
+      }
+    }
+           if(!message.channel.guild) return message.reply('** This command only for servers**');
+     message.member.addRole(muterole);
+    const embed500 = new Discord.RichEmbed()
+      .setTitle("Muted Ads")
+            .addField(`**  You Have Been Muted **` , `**Reason : Sharing Another Discord Link**`)
+            .setColor("c91616")
+            .setThumbnail(`${message.author.avatarURL}`)
+            .setAuthor(message.author.username, message.author.avatarURL)
+        .setFooter(`${message.guild.name} `)
+     message.channel.send(embed500)
+     message.author.send('` انت معاقب ميوت شاتي بسبب نشر سرفرات ان كان عن طريق الخطا **ف** تكلم مع الادارة `');
+   
+       
+    }
+})
+
+
+
+client.on("guildMemberAdd", (member) => {
+  let channel = member.guild.channels.get("594185638438240538");
+  if (!channel) {
+      console.log("!the channel id it's not correct");
+      return;
+  }
+  if (member.id == client.user.id) {
+      return;
+  }
+  console.log('-');
+  var guild;
+  while (!guild)
+      guild = client.guilds.get("550727606224289792");
+  guild.fetchInvites().then((data) => {
+      data.forEach((Invite, key, map) => {
+          var Inv = Invite.code;
+          if (dat[Inv])
+              if (dat[Inv] < Invite.uses) {
+                  setTimeout(function() {
+channel.send(`**invited by** ${Invite.inviter} `) ;
+                  },1500);
+}
+          dat[Inv] = Invite.uses;
+     
+     });
+  });
+});
+
+
+
 client.login(process.env.BOT_TOKEN);
 
