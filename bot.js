@@ -2770,7 +2770,15 @@ client.on('message', message => {
 
 
 
-
+client.on('message', message => {
+  if(message.content.startsWith(`<@${client.user.id}>`)) {
+    if(message.author.bot || message.channel.type == "dm") return
+    let mention = new Discord.RichEmbed()
+    .setColor('BLUE')
+    .setDescription(`**Hey There,\nSee my all commands by \`${prefix}help\`**`)
+    message.channel.send(mention)
+  }
+});
 
 
 
