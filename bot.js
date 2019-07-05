@@ -2759,5 +2759,20 @@ client.on('emojiDelete', emoji =>{
 
 
 
+
+client.on('message', message => {
+  if (message.content === prefix + 'volcano.com') {
+    message.react(`🐱`)
+      message.channel.sendFile("file:///C:/Users/dawoo/OneDrive/%D8%B3%D8%B7%D8%AD%20%D8%A7%D9%84%D9%85%D9%83%D8%AA%D8%A8/Screenshot_-----.png", "file:///C:/Users/dawoo/OneDrive/%D8%B3%D8%B7%D8%AD%20%D8%A7%D9%84%D9%85%D9%83%D8%AA%D8%A8/JPEG_20190313_234752.jpg")
+  }
+});
+
+
+
+
+
+
+
+
 client.login(process.env.BOT_TOKEN);
 
