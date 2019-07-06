@@ -2919,5 +2919,41 @@ console.log(`${message.member.displayName} has cleared all of ${wmem.displayName
 
 
 
+
+client.on('message', async message => {
+  var bud = require('basic-instagram-user-details');
+  var accountName = message.content.split(" ").slice(1).join(" ");
+  if (!message.content.startsWith(prefix + "instagram") || message.author.bot) return undefined;
+  if (!accountName) return message.channel.send(`**Syntax should be like: \`\`\`fix\n${prefix}instagram [account name]\`\`\`**`);
+  else {
+    var username = await bud(accountName, "username");
+    var followers = await bud(accountName, "followers");
+    var following = await bud(accountName, "following");
+    var posts = await bud(accountName, "posts");
+    var bio = await bud(accountName, "bio");
+    var link = "https://www.instagram.com/"+username.data+"/";
+    if (!username) return message.channel.send("**Account information is wrong.**");
+    var instaEmbed = new Discord.RichEmbed()
+    .setColor("#833AB4")
+    .setURL(link)
+    .setTitle(`**${username.data}** info`)
+    .addField("**Followers:**", `\`${followers.data}\``)
+    .addField("**Following**", `\`${following.data}\``)
+    .addField("**Posts:**", `\`${posts.data}\``)
+    .setThumbnail("https://media.discordapp.net/attachments/595507514616053770/597016836911136768/Pngtreeinstagram_social_media_icon_3572487.png?width=300&height=300")
+    .setFooter(`Requested by ${message.author.tag}`,message.author.displayAvatarURL)
+    .addField("**Bio:**", `\`\`\`fix\n${bio.data || "no Bio."}\`\`\``);
+    await message.channel.send(`**:white_check_mark: ${link}**`,{embed: instaEmbed});
+  }
+});
+
+
+
+
+
+
+
+
+
 client.login(process.env.BOT_TOKEN);
 
