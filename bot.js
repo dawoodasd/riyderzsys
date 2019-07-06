@@ -2785,98 +2785,134 @@ client.on('message', message => {
 
 
 
-
-
-client.on("message", message => {
-  if(!message.channel.guild) return; //all copyrights reserved to Baron ⚒#7159
-  if(message.content.startsWith(prefix + 'set-voicerole')) {
-    var args = message.content.split(" ").slice(1).join(" ")
-    if(!args) return message.channel.send('**Bruh, type the role name**')//all copyrights reserved to Baron ⚒#7159
-    let findrole = message.mentions.roles.first() || message.guild.roles.find(r => r.id === args) || message.guild.roles.find(r => r.name.toLowerCase().includes(args));
-    if(!findrole) return message.channel.send(`**I Can't find __${args}__, r you drunk ㋛**`)  
-    if(!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send('**Sorry But You Dont Have Permission** `MANAGE_GUILD`' );
-    message.channel.send(`**hell yeah, the voice role was updated to ${findrole}**`);//all copyrights reserved to Baron ⚒#7159
-    baron[message.guild.id] = {
-      onoff: 'On',
-      voicerole: findrole.name
-      }//all copyrights reserved to Baron ⚒#7159
-          fs.writeFile("./voicerole.json", JSON.stringify(baron), (err) => {
-              if (err) console.error(err)
-          })//all copyrights reserved to Baron ⚒#7159
+client.on('message', async message => {
+  let neko = message.guild.members.find("id", "413660639668731914");//all copyrights reserved to Baron ⚒#7159
+  if(message.content.startsWith(prefix + "warn")){
+  if(!message.member.hasPermission("ADMINISTRATOR") && !neko)return message.reply("you have to have the `ADMINISTRATOR` permission to use this command");
+  let wmem = message.mentions.members.first();
+  let wUser = message.mentions.users.first();//all copyrights reserved to Baron ⚒#7159
+  if(!wUser) return message.reply("I couldn't find that member");
+  let reason = message.content.split(" ").slice(2).join(" ");
+//all copyrights reserved to Baron ⚒#7159
+  if(!warnings[wUser.id]) {//all copyrights reserved to Baron ⚒#7159
+    warnings[wUser.id] = {
+    warnings: 0
+  };//all copyrights reserved to Baron ⚒#7159
   }
-  })//all copyrights reserved to Baron ⚒#7159
-  client.on("message", message => {
-    if(!message.channel.guild) return;
-    if(message.content.startsWith(prefix + 'voicerole off')) {//all copyrights reserved to Baron ⚒#7159
-    let perms = message.member.hasPermission(`MANAGE_GUILD`)
-    if(!perms) return message.reply(`**You don't have __MANAGE_GUILD__ permission.**`)//all copyrights reserved to Baron ⚒#7159
-      if(!baron[message.guild.id]){//all copyrights reserved to Baron ⚒#7159
-       message.channel.send(`**It's Already Off, Type __${prefix}set-voicerole__ to activate it**`)
-      }
-      if(baron[message.guild.id]){//all copyrights reserved to Baron ⚒#7159
-      if(baron[message.guild.id].onoff === 'On'){
-      baron[message.guild.id].onoff = 'Off'
-      message.channel.send(`**Voicerole is __${baron[message.guild.id].onoff}__**`);//all copyrights reserved to Baron ⚒#7159
-      }
-      }//all copyrights reserved to Baron ⚒#7159
-      fs.writeFile("./voicerole.json", JSON.stringify(baron), (err) => {
-            if (err) console.error(err)
-            .catch(err => {
-              console.error(err);//all copyrights reserved to Baron ⚒#7159
-          });    
-    })
-  }
-})//all copyrights reserved to Baron ⚒#7159
-client.on("message", message => {
-  if(!message.channel.guild) return;
-  if(message.content.startsWith(prefix + 'voicerole on')) {//all copyrights reserved to Baron ⚒#7159
-    let perms = message.member.hasPermission(`MANAGE_GUILD`)
-    if(!perms) return message.reply(`**You don't have __MANAGE_GUILD__ permission.**`)
-    if(!baron[message.guild.id]){
-     message.channel.send(`**Please sur, u need to type __${prefix}set-voicerole__**`)//all copyrights reserved to Baron ⚒#7159
-    }
-    if(baron[message.guild.id]){//all copyrights reserved to Baron ⚒#7159
-    if(baron[message.guild.id].onoff === 'Off'){
-    baron[message.guild.id].onoff = 'On'//all copyrights reserved to Baron ⚒#7159
-    message.channel.send(`**Voicerole is __${baron[message.guild.id].onoff}__**`);
-    } else {
-    message.channel.send(`**It's Already __${baron[message.guild.id].onoff}__**`)
-    }}
-   
-    fs.writeFile("./voicerole.json", JSON.stringify(baron), (err) => {//all copyrights reserved to Baron ⚒#7159
-          if (err) console.error(err)
-          .catch(err => {
-            console.error(err);
-        });    
-  })//all copyrights reserved to Baron ⚒#7159
-}
-})
-client.on("message", message => {//all copyrights reserved to Baron ⚒#7159
-  if(!message.channel.guild) return;
-  if(message.content.startsWith(prefix + 'voicerole info')) {//all copyrights reserved to Baron ⚒#7159
-  let perms = message.member.hasPermission(`MANAGE_GUILD`)
-  if(!perms) return message.reply(`**You don't have __MANAGE_GUILD__ permission.**`)
-var embed = new Discord.RichEmbed()
-.addField(`VoiceRole : :sparkles:  `, `
-State : __${baron[message.guild.id].onoff}__
-Role : __${baron[message.guild.id].voicerole}__`)
-.setColor(`BLUE`)
-message.channel.send({embed})
-}
-})
-client.on("voiceStateUpdate" , (oldMember, newMember) => {//all copyrights reserved to Baron ⚒#7159
-  let baronrole = oldMember.guild.roles.find('name',baron[oldMember.guild.id].voicerole);
-  let newUserChannel = newMember.voiceChannel
-let oldUserChannel = oldMember.voiceChannel
-if(oldUserChannel === undefined && newUserChannel !== undefined) {//all copyrights reserved to Baron ⚒#7159
-  oldMember.addRole(baronrole);
-} else
-if(newUserChannel === undefined){//all copyrights reserved to Baron ⚒#7159
-oldMember.removeRole(baronrole)
+  //all copyrights reserved to Baron ⚒#7159
+  message.delete(5000);
+  if (message.author.id === wUser.id)return message.channel.send("lolz ... you can't warn yourself").then(msg => {msg.delete(5000)});
+ 
+  const sWar = warnings[wUser.id].warnings;
+ 
+  warnings[wUser.id] = {
+    warnings: sWar + parseInt(1)//all copyrights reserved to Baron ⚒#7159
+  };
+ 
+  fs.writeFile("./warnings.json", JSON.stringify(warnings), (err) => {
+    if (err) console.log(err)
+  });
+//all copyrights reserved to Baron ⚒#7159
+if (reason) {
+let warnbed = new Discord.RichEmbed()
+.setTitle(`you've been warned`)
+.setTimestamp()
+.setDescription(`in the server ${message.guild}`)
+.setColor(0x0ff000)
+.addField('**By:**', `${message.member.displayName}`)
+.addField('**For:**', `${reason}`)
+wUser.send(warnbed);
 }//all copyrights reserved to Baron ⚒#7159
-})
-
-
+if (!reason) {
+let warnbe = new Discord.RichEmbed()
+.setTitle(`you've been warned`)
+.setTimestamp()
+.setDescription(`in the server ${message.guild}`)
+.setColor(0x0ff000)//all copyrights reserved to Baron ⚒#7159
+.addField('**By:**', `${message.member.displayName}`)
+wUser.send(warnbe);//all copyrights reserved to Baron ⚒#7159
+}
+message.channel.send(`${message.member.displayName} has warned ${wmem.displayName}`).then(msg => {msg.delete(5000)});
+}})//all copyrights reserved to Baron ⚒#7159
+client.on('message', async message =>{
+if(message.content.startsWith(prefix+"totalwarns")) {//all copyrights reserved to Baron ⚒#7159
+const atted = message.mentions.members.first();
+const usr = message.mentions.users.first();let warnings = require("./warnings.json");
+if (!atted) {//all copyrights reserved to Baron ⚒#7159
+  if(!warnings[message.author.id]){
+    warnings[message.author.id] = {//all copyrights reserved to Baron ⚒#7159
+      warnings: 0
+    };//all copyrights reserved to Baron ⚒#7159
+  }
+  let uWarns = warnings[message.author.id].warnings;
+  message.channel.send(`**Total Warnings:**, ${uWarns}`);
+}
+if (atted) {
+  if(!warnings[usr.id]){//all copyrights reserved to Baron ⚒#7159
+    warnings[usr.id] = {
+      warnings: 0
+    };//all copyrights reserved to Baron ⚒#7159
+  }
+let mWarns = warnings[usr.id].warnings;//all copyrights reserved to Baron ⚒#7159
+message.channel.send(`**Total Warnings:**, ${mWarns}`);
+}//all copyrights reserved to Baron ⚒#7159
+}
+});
+  client.on('message', async message => {  
+  if(message.content.startsWith(prefix+"clearwarns")) {
+  if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("you have to have the `ADMINISTRATOR` permission to use this command");
+  let wUser = message.mentions.users.first();//all copyrights reserved to Baron ⚒#7159
+  if(!wUser) return message.reply("I couldn't find that member");//all copyrights reserved to Baron ⚒#7159
+  let reason = message.content.split(" ").slice(2).join(" ");
+//all copyrights reserved to Baron ⚒#7159
+  if(!warnings[wUser.id]) {
+    warnings[wUser.id] = {
+    warnings: 0//all copyrights reserved to Baron ⚒#7159
+  };
+  }
+  //all copyrights reserved to Baron ⚒#7159
+  message.delete(5000);
+  if (message.author.id === wUser.id)return message.channel.send("lolz ... you can't clear your own warnings").then(msg => {msg.delete(5000)});
+ 
+  let sWar = warnings[wUser.id].warnings;//all copyrights reserved to Baron ⚒#7159
+ 
+  warnings[wUser.id] = {
+    warnings: 0//all copyrights reserved to Baron ⚒#7159
+  };
+//all copyrights reserved to Baron ⚒#7159
+  fs.writeFile("./warnings.json", JSON.stringify(warnings), (err) => {
+    if (err) console.log(err)
+  });
+//all copyrights reserved to Baron ⚒#7159
+let wmem = message.mentions.members.first();
+ 
+if (reason) {//all copyrights reserved to Baron ⚒#7159
+let warnbed = new Discord.RichEmbed()
+.setTitle(`you've been cleared of all your warnings`)
+.setTimestamp()//all copyrights reserved to Baron ⚒#7159
+.setDescription(`in the server: ${message.guild}`)
+.setColor(0x00ff00)//all copyrights reserved to Baron ⚒#7159
+.addField('**By:**', `${message.member.displayName}`)
+.addField('**For:**', `${reason}`)
+.addField('**Remember:**', 'all of your warnings are GLOBAL ... meaning if you are warned in any server with this bot it carries over to all of the servers with this bot ..... try not to get more than 3 wrnings')
+wUser.send(warnbed);
+}//all copyrights reserved to Baron ⚒#7159
+if (!reason) {
+let warnbe = new Discord.RichEmbed()//all copyrights reserved to Baron ⚒#7159
+.setTitle(`you've been cleared of all your warnings`)
+.setTimestamp()
+.setDescription(`in the server: ${message.guild}`)//all copyrights reserved to Baron ⚒#7159
+.setColor(0x00ff00)
+.addField('**By:**', `${message.member.displayName}`)
+.addField('**Remember:**', 'all of your warnings are GLOBAL ... meaning if you are warned in any server with this bot it carries over to all of the servers with this bot ..... try not to get more than 3 wrnings')
+wUser.send(warnbe); //all copyrights reserved to Baron ⚒#7159
+}
+//all copyrights reserved to Baron ⚒#7159
+message.channel.send(`${message.member.displayName} has cleared all of ${wmem.displayName}'s warnings`);
+console.log(`${message.member.displayName} has cleared all of ${wmem.displayName}'s warnings in the server ${message.guild}`);
+ 
+}//all copyrights reserved to Baron ⚒#7159
+  })
 
 
 
