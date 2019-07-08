@@ -2922,26 +2922,6 @@ console.log(`${message.member.displayName} has cleared all of ${wmem.displayName
 
 
 
-client.on('message', message => {
-  if(message.content.startsWith(prefix + 'tw')) {
-    let args = message.content.split(" ").slice(1).join(" ");
-    if(!args) return message.channel.send('**🙄 Please Type the Username**')
-    const getAccountStats = require('twitter-scrape-account-stats').getAccountStats;
-    getAccountStats({username: args}).then(function(account) {
-      let twitter = new Discord.RichEmbed()
-      .setColor('BLUE')
-      .setThumbnail('https://cdn.discordapp.com/attachments/584630360017469461/597710816967524352/mystery_twitter.png')
-      .setTitle(`**${args}** info`)
-      .setURL(`https://twitter.com/${args}`)
-      .addField(`**Followers: \`${account.followers}\`\n\nFollowing: \`${account.following}\`\n\nTweets: \`${account.posts}\`\n
-Verified: \`${account.isVerified}\`\n\nBio:**`,`**\`\`\`fix\n${account.description}\n\`\`\`**`)
-      .setFooter(`Requested by ${message.author.tag}`,message.author.avatarURL)
-      message.channel.send(`**✅ https://twitter.com/${args}/**`,twitter)
-  }).catch(mystery => {
-    message.channel.send(`**I can't Find this Username :x:**`)
-  })}});
-
-
 
 
 client.login(process.env.BOT_TOKEN);
