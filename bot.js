@@ -2942,5 +2942,46 @@ client.on('message', message => {
 
 
 
+client.on("message", message => {
+  if(message.content.startsWith(prefix + "banner")) {
+    if(message.guild.bannerURL === null || message.guild.bannerURL === undefined) return message.channel.send("**❌ | This server doesn\'t have a banner.**");
+    const ba = new Discord.RichEmbed()
+    .setAuthor(message.guild.name, message.guild.iconURL)
+    .setDescription(`[Banner URL](${message.guild.bannerURL}?size=2048)`)
+    .setImage(message.guild.bannerURL + "?size=2048")
+    message.channel.send({embed : ba})
+  }
+});
+
+
+
+
+
+
+
+client.on('message', message => {  
+    if (message.author.bot) return; ///Pixel Team
+    if (message.content.startsWith(prefix + 'clear')) { 
+    if(!message.channel.guild) return message.reply(`** This Command For Servers Only**`); 
+     if(!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send(`** You don't have Premissions!**`);
+     if(!message.guild.member(client.user).hasPermission('MANAGE_GUILD')) return message.channel.send(`**I don't have Permission!**`);
+    let args = message.content.split(" ").slice(1)
+    let messagecount = parseInt(args);
+    if (args > 100) return message.reply(`** The number can't be more than **100** .**`).then(messages => messages.delete(5000))
+    if(!messagecount) args = '100';
+    message.channel.fetchMessages({limit: messagecount}).then(messages => message.channel.bulkDelete(messages)).then(msgs => {
+    message.channel.send(`** Done , Deleted \`${msgs.size}\` messages.**`).then(messages => messages.delete(5000));
+    })
+  }
+});  ///Zine & Zaid
+
+client.on("message", message => { //iTzMurtaja#8951
+  if(message.content.toLowerCase().includes("giveaway")) { //iTzMurtaja#8951
+    if(message.author.id == "294882584201003009" || message.author.id == "553212598368337921") { //iTzMurtaja#8951
+      message.react("🎉") //iTzMurtaja#8951
+    } //iTzMurtaja#8951 
+  } //iTzMurtaja#8951
+}) //iTzMurtaja#8951
+
 client.login(process.env.BOT_TOKEN);
 
