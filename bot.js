@@ -2962,7 +2962,7 @@ client.on("message", message => {
 
 client.on('message', message => {  
     if (message.author.bot) return; ///Pixel Team
-    if (message.content.startsWith(prefix + 'clear')) { 
+    if (message.content.startsWith(prefix + 'زبالة')) { 
     if(!message.channel.guild) return message.reply(`** This Command For Servers Only**`); 
      if(!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send(`** You don't have Premissions!**`);
      if(!message.guild.member(client.user).hasPermission('MANAGE_GUILD')) return message.channel.send(`**I don't have Permission!**`);
