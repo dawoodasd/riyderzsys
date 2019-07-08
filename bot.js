@@ -2920,37 +2920,26 @@ console.log(`${message.member.displayName} has cleared all of ${wmem.displayName
 
 
 
-client.on('message', async message => {
-  var bud = require('basic-instagram-user-details');
-  var accountName = message.content.split(" ").slice(1).join(" ");
-  if (!message.content.startsWith(prefix + "instagram") || message.author.bot) return undefined;
-  if (!accountName) return message.channel.send(`**Syntax should be like: \`\`\`fix\n${prefix}instagram [account name]\`\`\`**`);
-  else {
-    var username = await bud(accountName, "username");
-    var followers = await bud(accountName, "followers");
-    var following = await bud(accountName, "following");
-    var posts = await bud(accountName, "posts");
-    var bio = await bud(accountName, "bio");
-    var link = "https://www.instagram.com/"+username.data+"/";
-    if (!username) return message.channel.send("**Account information is wrong.**");
-    var instaEmbed = new Discord.RichEmbed()
-    .setColor("#833AB4")
-    .setURL(link)
-    .setTitle(`**${username.data}** info`)
-    .addField("**Followers:**", `\`${followers.data}\``)
-    .addField("**Following**", `\`${following.data}\``)
-    .addField("**Posts:**", `\`${posts.data}\``)
-    .setThumbnail("https://media.discordapp.net/attachments/595507514616053770/597016836911136768/Pngtreeinstagram_social_media_icon_3572487.png?width=300&height=300")
-    .setFooter(`Requested by ${message.author.tag}`,message.author.displayAvatarURL)
-    .addField("**Bio:**", `\`\`\`fix\n${bio.data || "no Bio."}\`\`\``);
-    await message.channel.send(`**:white_check_mark: ${link}**`,{embed: instaEmbed});
-  }
-});
 
 
-
-
-
+client.on('message', message => {
+  if(message.content.startsWith(prefix + 'tw')) {
+    let args = message.content.split(" ").slice(1).join(" ");
+    if(!args) return message.channel.send('**🙄 Please Type the Username**')
+    const getAccountStats = require('twitter-scrape-account-stats').getAccountStats;
+    getAccountStats({username: args}).then(function(account) {
+      let twitter = new Discord.RichEmbed()
+      .setColor('BLUE')
+      .setThumbnail('https://cdn.discordapp.com/attachments/584630360017469461/597710816967524352/mystery_twitter.png')
+      .setTitle(`**${args}** info`)
+      .setURL(`https://twitter.com/${args}`)
+      .addField(`**Followers: \`${account.followers}\`\n\nFollowing: \`${account.following}\`\n\nTweets: \`${account.posts}\`\n
+Verified: \`${account.isVerified}\`\n\nBio:**`,`**\`\`\`fix\n${account.description}\n\`\`\`**`)
+      .setFooter(`Requested by ${message.author.tag}`,message.author.avatarURL)
+      message.channel.send(`**✅ https://twitter.com/${args}/**`,twitter)
+  }).catch(mystery => {
+    message.channel.send(`**I can't Find this Username :x:**`)
+  })}});
 
 
 
