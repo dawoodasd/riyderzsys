@@ -3056,7 +3056,7 @@ client.on('guildMemberAdd', member => {
 
 client.on('message', message => {
     var api = `${Math.round(client.ping)}`
-    if (message.content.startsWith("-bottime")) {
+    if (message.content.startsWith("-riyderz.com")) {
       message.channel.send({
  embed: new Discord.RichEmbed() 
     .setColor('RED')
