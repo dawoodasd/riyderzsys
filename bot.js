@@ -3110,6 +3110,7 @@ let Images = new Discord.RichEmbed()
 .setFooter(message.author.username,message.author.avatarURL)
 message.channel.send(Images)
 }
+})
 
 
 
