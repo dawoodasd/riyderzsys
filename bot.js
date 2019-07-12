@@ -3090,5 +3090,31 @@ message.channel.send(querry)
 })
 
 
+
+
+
+
+
+
+
+client.on('message' , message => {
+if(message.content.startsWith(prefix + 'img')) {
+const query = message.content.split(" ").slice(1);
+const url = `https://www.google.com/search?tbm=isch&q=${query}`;
+if(!query) return message.channel.send(`**:x: | Error , Please Type Command True Ex : \`${prefix}img [Anything]\`**`)
+let Images = new Discord.RichEmbed()
+.setAuthor("Google Images","https://cdn.discordapp.com/attachments/594421865137569797/599226946290843648/iVRUEpoIAAAAASUVORK5CYII.png")
+.setColor('BLUE')
+.setTitle(`Images : \`${query.join(" ")}\``)
+.setDescription(`${url}`)
+.setFooter(message.author.username,message.author.avatarURL)
+message.channel.send(Images)
+}
+
+
+
+
+
+
 client.login(process.env.BOT_TOKEN);
 
