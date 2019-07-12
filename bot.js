@@ -3074,7 +3074,20 @@ if(message.content.startsWith( prefix + 'infoinvite')) { //// وهون الام�
     };
 });
 
-
+client.on('message' , message => {
+if(message.content.startsWith(prefix + 'youtube')) {
+const query = message.content.split(" ").slice(1);
+const url = `https://www.youtube.com/results?search_query=${query}`;
+if(!query) return message.channel.send(`**:x: | Error , Please Type Command True Ex : \`${prefix}youtube [Anything]\`**`)
+let querry = new Discord.RichEmbed()
+.setAuthor("Youtube","https://cdn.discordapp.com/attachments/599152027628732429/599229170517540874/1GNwojhBBCCCGEEEIIIYQQQgghhBBCCCGEEELI7APi4BZVCOUmf4AAAAASUVORK5CYII.png")
+.setColor('RED')
+.setTitle(`Results : \`${query.join(" ")}\``)
+.setDescription(`${url}`)
+.setFooter(message.author.username,message.author.avatarURL)
+message.channel.send(querry)
+}
+})
 
 
 client.login(process.env.BOT_TOKEN);
