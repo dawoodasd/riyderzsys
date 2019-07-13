@@ -3131,7 +3131,7 @@ client.on('messageReactionRemove', (reaction) => {
 
 
 
-const _3amyah = require("3amyah");
+
 client.on("message", msg =>{
   if(msg.content.startsWith(`${prefix}3amyh`)){
 let Word = msg.content.split(` `).slice(1).join(' ');
