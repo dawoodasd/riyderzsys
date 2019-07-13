@@ -3265,10 +3265,32 @@ if(!message.channel.guild) return message.reply(' Error : \` Guild Command \`');
 
 
 
+client.on('message', message => {
+if (message.content.startsWith(prefix + 'join')) {
+if (!message.guild) return null
+if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('you don\'t have **ADMINISTRATOR** premission')
+if (!message.member.voiceChannel) return message.channel.send('**please join a voice channel first 🙄**');
+if(!message.member.voiceChannel.permissionsFor(client.user).has(['VIEW_CHANNEL','CONNECT'])) return message.channel.send(`**I Can't Join This Channel ❌**`)
+message.channel.send(`**I have joined \`${message.member.voiceChannel.name}\`✅**`),message.member.voiceChannel.join().catch(mystery => { message.channel.send(`ERROR`) });
+}
+});
 
 
 
-
+client.on('message', message => {
+  if(!message.channel.guild) return;
+  if (message.content.startsWith(prefix + 'pingk')) {
+  if(!message.channel.guild) return;
+  var msg = `${Date.now() - message.createdTimestamp}`
+  var api = `${Math.round(client.ping)}`
+  if (message.author.bot) return;
+  let ping = new Discord.RichEmbed()
+  .addField(`**:ping_pong: Ping: \`${msg}\`**`,`** **`)
+  if(msg < 80) ping.setColor('GREEN')
+  if(msg >= 80 && msg < 140) ping.setColor('ORANGE')
+  if(msg >= 140) ping.setColor('RED')
+  message.channel.send(ping)}
+  });
 
 
 client.login(process.env.BOT_TOKEN);
