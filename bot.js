@@ -3163,40 +3163,43 @@ message.channel.awaitMessages(filte, { max: 1, time: 30000, errors: ['time'] })
 
 
 
+client.on('guildCreate', guild => {
+client.channels.get("598103322271940612").send(`✅ **${client.user.tag} دخل سيرفر جديد
+Server name: __${guild.name}__
+Server owner: __${guild.owner}__
+Server id: __${guild.id}__ 
+Server Count: __${guild.memberCount}__**`)
+}); //Codes
+client.on('guildDelete', guild => {
+  client.channels.get("598103322271940612").send(`❎ **${client.user.tag} طلع من سيرفر
+Server name: __${guild.name}__
+Server owner: __${guild.owner}__
+Server id: __${guild.id}__ 
+Server Count: __${guild.memberCount}__**`)
+});//Codes
 
 
-var minecrafta = [
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  ""
-];
 
-client.on('message', message => {
- if (message.content.startsWith("-minecraft")) {
-              if(!message.channel.guild) return message.reply('** This command only for servers**');
-var embed = new Discord.RichEmbed()
-.setColor('RANDOM')
-.setThumbnail(message.author.avatarURL) 
-.addField('Your Account Is : ' ,
-`${minecrafta[Math.floor(Math.random() * minecrafta.length)]}`)
-   message.author.sendEmbed(embed);
-console.log('[minecrafta] Send By: ' + message.author.username)
-  }
+
+
+
+
+client.on('message', warn => {
+    const prefix = '-';
+    const log = warn.guild.channels.find(c => c.name === 'log');
+    const all = warn.guild.channels.find(c => c.name === 'public-chat');
+    const user = warn.mentions.members.first();
+    const reason = warn.content.split(' ').slice(2).join(' ');
+    if (warn.content === `${prefix}warn`) {
+      const embed = new Discord.RichEmbed()
+      .setAuthor('New Warn !')
+      .setThumbnail(user.avatarURL)
+      .addField('User Warned', `${user}`)
+      .addField('Warned By', `<@${warn.author.id}>`)
+      .addField('Reason', `${reason}`);
+        log.send({ embed });
+        all.send({ embed });
+    }
 });
 
 
