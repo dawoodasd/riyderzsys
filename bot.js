@@ -3160,5 +3160,49 @@ message.channel.awaitMessages(filte, { max: 1, time: 30000, errors: ['time'] })
 });
 
 
+
+
+
+
+
+var minecrafta = [
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  ""
+];
+
+client.on('message', message => {
+ if (message.content.startsWith("-minecraft")) {
+              if(!message.channel.guild) return message.reply('** This command only for servers**');
+var embed = new Discord.RichEmbed()
+.setColor('RANDOM')
+.setThumbnail(message.author.avatarURL) 
+.addField('Your Account Is : ' ,
+`${minecrafta[Math.floor(Math.random() * minecrafta.length)]}`)
+   message.author.sendEmbed(embed);
+console.log('[minecrafta] Send By: ' + message.author.username)
+  }
+});
+
+
+
+
+
+
 client.login(process.env.BOT_TOKEN);
 
