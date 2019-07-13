@@ -3298,14 +3298,6 @@ client.on('message', message => {
 
 
 
-client.on("message", message => {
-  if(message.content.startsWith(prefix + "ibot")) {
-    var mbot = message.mentions.members.first()
-    message.channel.send(`https://discordapp.com/api/oauth2/authorize?client_id=${mbot.id}&permissions=0&scope=bot`)
-  }
-});
-
-
 
 
 
