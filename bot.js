@@ -3130,5 +3130,40 @@ client.on('messageReactionRemove', (reaction) => {
 
 
 
+
+
+
+
+
+client.on('message', message => {
+    let news = message.content.split(" ").slice(1).join(" ")
+    if(message.content.startsWith(prefix + 'setnews')) {
+if(message.author.id !== '413660639668731914') return;
+          if(!news) return message.channel.send(`❌ | Please Write The News For Example: ${prefix}setnews fix bugs`)
+           newsjson[client.user.id] = {
+            new: news,
+           }
+           message.channel.send(`✅ | Done The Bot News Has Been Updated !`)
+        }
+    if(message.content.startsWith( prefix + 'news')) {
+        if(!newsjson[client.user.id]) newsjson[client.user.id] = {
+            new: 'nothing'
+        }
+        let embed = new Discord.RichEmbed()
+        .setTitle(`📰 | ${client.user.username} Latest News :`)
+        .setDescription(`${newsjson[client.user.id].new}`)
+        .setTimestamp()
+        .setFooter(`Requested By ${message.author.username}`)
+           message.channel.sendEmbed(embed)
+        }
+        fs.writeFile("./news.json", JSON.stringify(newsjson), (err) => {
+        })
+})
+
+
+
+
+
+
 client.login(process.env.BOT_TOKEN);
 
