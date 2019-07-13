@@ -3113,7 +3113,20 @@ message.channel.send(Images)
 })
 
 
+client.on('messageReactionAdd', (reaction) => {
+  const embed = new Discord.RichEmbed()
+  .setTitle(`New Reaction`)
+  .setDescription(`**Reaction Message:-** ${reaction.message.content} \n **Reaction Emoji:-** ${reaction.emoji} \n **Reaction Message ID:-** ${reaction.message.id} \n **Reaction Message Channel:-** ${reaction.message.channel.name} \n **Reactions Count:-** ${reaction.count}`)
+  client.channels.get('551329635271442433').send({embed : embed}).catch(e => console.log(e))
+})
 
+
+client.on('messageReactionRemove', (reaction) => {
+  const embed = new Discord.RichEmbed()
+  .setTitle(`Reaction Removed`)
+  .setDescription(`**Reaction Message:-** ${reaction.message.content} \n **Reaction Emoji:-** ${reaction.emoji} \n **Reaction Message ID:-** ${reaction.message.id} \n **Reaction Message Channel:-** ${reaction.message.channel.name} \n **Reactions Count:-** ${reaction.count}`)
+  client.channels.get('551329635271442433').send({embed : embed}).catch(e => console.log(e))
+})
 
 
 
