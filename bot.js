@@ -3131,28 +3131,14 @@ client.on('messageReactionRemove', (reaction) => {
 
 
 
-
-client.on("message", msg =>{
-  if(msg.content.startsWith(`${prefix}3amyh`)){
-let Word = msg.content.split(` `).slice(1).join(' ');
-if(!Word) return msg.reply("الرجاء ادخال الكلمة المراد البحث عنها").then(z=>z.delete(3000));
-_3amyah.search(Word).then(words => {
-if(!words[1]) return msg.reply("لم يتم العثور على الكلمة").then(z=>z.delete(3000));
-
-  let embed = new Discord.RichEmbed()
-  .setColor("RANDOM")
-  .setAuthor(msg.author.username,msg.author.displayAvatarURL)
-  .setThumbnail(msg.author.displayAvatarURL)
-  .setTimestamp()
-  .addField("**الكلمة**",`**${words[1]["word"].replace(/`@/g,"")}**`,true)
-  .addField("**معنى الكلمة**",`**${words[1]["definition"].replace(/`@/g,"")}**`,true)
-  .addField("**مثال**",`**${words[1]["example"].replace(/`@/g,"")}**`,true)
-  .addField("**تم اضافة الكلمة من قبل**",`**${words[1]["author"].replace(/`@/g,"")}**`,true)
-  .addField("**تستخدم هذي الكلمة في**",`**${words[1]["countryList"]}**`,true)
-  .addField("**تاريخ اضافة الكلمة**",`**${words[1]["dateCreated"].replace(/`@/g,"")}**`,true)
-  msg.channel.send(embed);
-})
-}})
+client.on("message", message => { 
+      if(message.content == `${prefix}rankplayer`) { 
+        const ListEmbed = new Discord.RichEmbed() 
+        .setTitle('Users with the Player role:') 
+        .setDescription(message.guild.roles.get('550730456778276864').members.map(m=>m.user.tag).join('\n')); 
+        message.channel.send(ListEmbed); 
+      }
+   });
 
 
 
