@@ -3295,7 +3295,24 @@ client.on('message', message => {
 
 
 
-
+client.on('messageDelete', msg => {
+  let channel = msg.guild.channels.find(c => c.name === 'log')
+  let embed = new Discord.RichEmbed()
+  .setTitle(`Msg deleted`)
+  .setDescription(`**msg :__${msg}__ \n by : __${msg.author.tag}__ \n in : <#${msg.channel.id}>**`)
+  return channel.send(embed) 
+})
+client.on('messageUpdate', (omsg, nmsg) => {
+  if(omsg.author.bot) return;
+  let channel = omsg.guild.channels.find(c => c.name === 'log')
+  let embed = new Discord.RichEmbed()
+  .setTitle(`Msg Edited`)
+  .setDescription(`**old msg :__${omsg}__ \n new msg :__${nmsg}__ \n by : __${omsg.author.tag}__ \n in : <#${omsg.channel.id}>**`)
+  return channel.send(embed) 
+})
+client.on('ready', () => {
+  console.log(`${client.user.tag}`)
+})
 
 
 
