@@ -3318,5 +3318,95 @@ client.on('ready', () => {
 
 
 
+
+
+
+
+
+
+client.on('message', message => {
+  if(message.content.startsWith(prefix + 'Tempban')) {
+  if(message.author.bot || message.author.toxic || message.author.mystery) return;
+  if(!message.member.hasPermission('BAN_MEMBERS')) return message.channel.send(`**you Don't have premission :x:**`)
+  if(!message.guild.member(client.user).hasPermission("BAN_MEMBERS")) return message.channel.send(`**Error** :octagonal_sign:\nI Don\'t have BAN_MEMBERS Permission to do this`)
+  let user = message.mentions.users.first();
+  if (!user) return message.channel.send("**:rolling_eyes: I can't find this member**");
+  if(user.id === message.guild.owner.user.id) return message.channel.send(`**I Can't ban the Ownership :rolling_eyes:**`)
+  if(user.id === message.author.id) return message.channel.send('**You can\'t ban yourself :rolling_eyes:**');
+  if(user.id === client.user.id) return message.channel.send('**I can\'t ban my self :rolling_eyes:**');
+  if(!message.guild.member(user).bannable) return message.channel.send(`I couldn't ban that user. Please check my role position :interrobang:`)
+  let filter = m => m.author.id == message.author.id
+  let broadcastt = new Discord.RichEmbed()
+  .setColor('#36393e')
+  .setThumbnail('https://cdn.discordapp.com/attachments/584630360017469461/588151961279397898/582096914376425501.png')
+  .setTitle('**Select the reason to ban**')
+  .addField(`**[1] نشر خاص\n[2] نشر بالعام\n[3] سب الاداره\n[4] تكلم عن الطائفيه\n[0] to Cancel**`,`** **`)
+  .setFooter(message.guild.name,`https://cdn.discordapp.com/icons/${message.guild.id}/${message.guild.icon}.png?size=1024`)
+  message.channel.send(broadcastt).then(msg => {
+  if(msg.author.mystery) return;
+  message.channel.awaitMessages(filter, {
+    max: 1,
+    time: 90000,
+    errors: ['time']
+  })
+  .then(collected => {
+    if(collected.first().content === '1') {
+      message.channel.bulkDelete(1)
+      message.guild.member(user).ban({
+        reason: `By: ${message.author.tag} for: نشر خاص`,
+      })
+  message.channel.send(`**✈ ${user} has been banned for:\n\`\`\`fix\nنشر خاص\n\`\`\`**`);
+  msg.delete()
+  }
+  if(collected.first().content === '2') {
+    msg.delete()
+    message.channel.bulkDelete(1)
+    message.guild.member(user).ban({
+      reason: `By: ${message.author.tag} for: نشر عام`,
+    })
+    message.channel.send(`**✈ ${user} has been banned for:\n\`\`\`fix\nنشر بالعام\n\`\`\`**`);
+    }
+    if(collected.first().content === '3') {
+      message.channel.bulkDelete(1)
+      msg.delete()
+      message.guild.member(user).ban({
+        reason: `By: ${message.author.tag} for: سب الاداره`,
+      })
+      message.channel.send(`**✈ ${user} has been banned for:\n\`\`\`fix\nسب الاداره\n\`\`\`**`);
+      }
+      if(collected.first().content === '4') {
+        message.channel.bulkDelete(1)
+        msg.delete()
+        message.guild.member(user).ban({
+          reason: `By: ${message.author.tag} for: تكلم عن الطائفيه`,
+        })
+ 
+        message.channel.send(`**✈ ${user} has been banned for:\n\`\`\`fix\nتكلم عن الطائفيه\n\`\`\`**`);
+        }
+        if(collected.first().content === '0') {
+          message.channel.bulkDelete(1)
+          msg.delete()
+          return message.channel.send('**Banned Cancelled ✅**')
+          }
+        let banned = new Discord.RichEmbed()
+      .setTitle('**Member has Been Banned ✈**')
+      .setThumbnail('https://cdn.discordapp.com/attachments/584630360017469461/588151961279397898/582096914376425501.png')
+      .addField(`**User:**`,`${user}`,true)
+      .addField(`**By:**`,`${message.author}`,true)
+      .setFooter(message.guild.name,`https://cdn.discordapp.com/icons/${message.guild.id}/${message.guild.icon}.png?size=1024`)
+      .setTimestamp()
+      let log = message.guild.channels.find("name", 'log');
+      if(log) log.sendEmbed(banned)
+  })}).catch(mystery => {
+    message.channel.send('Unknow Error :x:')
+  })
+}
+});
+
+
+
+
+
+
 client.login(process.env.BOT_TOKEN);
 
