@@ -3423,6 +3423,125 @@ channel.send({embed : embed});
 
 
 
+ var spee={};
+var fox="-";
+let pointsfox= {}
+const foxt = [
+    {
+            "type": "https://cdn.discordapp.com/attachments/576512197275156502/601055751447773195/bandicam_2019-07-16_14-38-25-841.jpg",
+        "answers": ["البرازيل"]
+    },
+    {
+            "type": "https://cdn.discordapp.com/attachments/576512197275156502/601055755080302593/bandicam_2019-07-17_17-14-28-589.jpg",
+        "answers": ["بلجيكا"]
+    },
+    {
+            "type": "https://cdn.discordapp.com/attachments/576512197275156502/601055760180576276/bandicam_2019-07-17_17-15-04-686.jpg",
+        "answers": ["فرنسا"]
+    },
+    {
+            "type": "https://cdn.discordapp.com/attachments/576512197275156502/601055761467965452/bandicam_2019-07-17_17-15-42-926.jpg",
+        "answers": ["كرواتيا"]
+    },
+    {
+            "type": "https://cdn.discordapp.com/attachments/576512197275156502/601055764542390287/bandicam_2019-07-17_17-16-28-291.jpg",
+        "answers": ["برتغال"]
+    },
+    {
+            "type": "https://cdn.discordapp.com/attachments/576512197275156502/601055766576889863/bandicam_2019-07-17_17-16-42-901.jpg",
+        "answers": ["سنغال"]
+    },
+    {
+            "type": "https://cdn.discordapp.com/attachments/576512197275156502/601055769399525394/bandicam_2019-07-17_17-16-57-102.jpg",
+        "answers": ["سعودية"]
+    },
+    {
+            "type": "https://cdn.discordapp.com/attachments/576512197275156502/601055772377350165/bandicam_2019-07-17_17-17-17-663.jpg",
+        "answers": ["المانيا"]
+    },
+    {
+            "type": "https://cdn.discordapp.com/attachments/576512197275156502/601055773421862913/bandicam_2019-07-17_17-17-37-828.jpg",
+        "answers": ["المكسيك"]
+          },
+    {
+            "type": "https://cdn.discordapp.com/attachments/576512197275156502/601055773761732619/bandicam_2019-07-17_17-17-52-326.jpg",
+        "answers": ["ارغواي"]
+          },
+    {
+            "type": "https://cdn.discordapp.com/attachments/576512197275156502/601055830451683359/bandicam_2019-07-17_17-18-00-272.jpg",
+        "answers": ["صربيا"]
+          },
+    {
+            "type": "https://cdn.discordapp.com/attachments/576512197275156502/601055832704155658/bandicam_2019-07-17_17-18-20-074.jpg",
+        "answers": ["مصر"]
+       
+    }
+];
+ 
+client.on('message', foxm => {
+if (!pointsfox[foxm.author.id]) pointsfox[foxm.author.id] = { ///By KillerFox and MEDSPORT
+    points: 0,
+  };
+  if(!foxm.guild) return;
+    let id = foxm.author.id
+    if (spee[id] && (new Date).getTime() - spee[id] < 15*1000) { ///By KillerFox and MEDSPORT
+        let r = (new Date).getTime() - spee[id];
+        r = 15*1000 - r;
+    foxm.channel.send(`**Sorry, Please Wait ${pretty(r, {verbose:true})}...**`).then(m => m.delete(5000));
+    return;
+    }
+    if ( foxm.content == fox+'احزر'){
+       
+        try{
+}catch(e){ ///By KillerFox and MEDSPORT
+ 
+}
+ 
+    if(!foxm.channel.guild) return foxm.reply('**هذا الأمر للسيرفرات لا تستعملة بالخاص لا تكررة بعد تمام**').then(m => m.delete(3000)); ///By KillerFox and MEDSPORT
+ 
+ 
+const foxitem = foxt[Math.floor(Math.random() * foxt.length)];
+const foxfilter = response => {  
+    return foxitem.answers.some(answer => answer.toLowerCase() === response.content.toLowerCase());
+};
+foxm.channel.send('**بدات اللعبة**').then(msg => {
+ 
+ const embeda7zr = new Discord.RichEmbed()
+ .setColor("RANDOM")
+     .setAuthor(`اكتب اجابة صحيحة لديك 15 ثانية`)
+          .setImage(`${foxitem.type}`)
+ .setFooter(`${foxm.author.tag}`, foxm.author.avatarURL) ///By KillerFox and MEDSPORT
+ 
+ 
+         
+foxm.channel.send(embeda7zr).then(() => {
+        foxm.channel.awaitMessages(foxfilter, { maxMatches: 1, time: 15000, errors: ['time'] })
+        .then((collected) => {
+                  const foxyembed = new Discord.RichEmbed()
+  .setColor("RANDOM")
+  .setDescription('** احسنت حصلت علئ نقطة**') ///By KillerFox and MEDSPORT
+   .setFooter(`${collected.first().author}`)
+  foxm.channel.sendEmbed(foxyembed);
+            let won = collected.first().author;
+            pointsfox[won.id].points++; ///By KillerFox and MEDSPORT
+          })
+          .catch(collected => {
+            foxm.channel.send(`:x: |**هلص الموقت لا تستسلم**`);
+          })
+        })
+    })
+    spee[id] = (new Date).getTime()
+   
+   
+    }
+  });
+
+
+
+
+
+
+
 
 
 
