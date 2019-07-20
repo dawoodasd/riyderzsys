@@ -3420,6 +3420,14 @@ channel.send({embed : embed});
 
 
 
+client.on('message', message => {
+  if (message.channel.id === "573947817039757323") {
+    message.react('☑')
+      .then(() => {
+        message.react('🚫')
+      });
+  }
+});
 
 
 
