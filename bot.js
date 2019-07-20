@@ -3433,5 +3433,46 @@ client.on('message', message => {
 
 
 
+
+
+
+
+
+
+
+client.on('message', message => {
+let args = message.content.split(' ').slice(1).join(' ');
+if(message.content.split(' ')[0] == prefix + 'leave'){
+    if(message.author.id === '413660639668731914'){
+        if (!args) {
+            message.channel.send("**leave <server id>**");
+            return;
+        }
+
+        let server = client.guilds.get(args)
+        if (!server){
+            let embed = new Discord.RichEmbed()
+            .setColor("RANDOM")
+            .setTimestamp()
+            .addField('No Server with this id ',args)
+            message.channel.sendEmbed(embed).then(msg => {msg.delete(10000)});;   
+        }else{
+        server.leave()    
+                    let embed = new Discord.RichEmbed()
+            .setColor("RANDOM")
+            .setTimestamp()
+            .addField('Done my Dad im left ',args)
+            message.channel.sendEmbed(embed).then(msg => {msg.delete(10000)});;   
+
+        }
+        
+    }
+    }
+});
+
+
+
+
+
 client.login(process.env.BOT_TOKEN);
 
