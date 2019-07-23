@@ -3477,7 +3477,7 @@ if(message.content.split(' ')[0] == prefix + 'leave'){
 
 
 
-const adminprefix = "!";
+const adminprefix = "-";
 const devs = ['413660639668731914']
 client.on('message', message => {
   var argresult = message.content.split(` `).slice(1).join(' ');
