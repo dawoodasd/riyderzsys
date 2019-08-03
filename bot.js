@@ -3473,7 +3473,20 @@ if(message.content.split(' ')[0] == prefix + 'leave'){
 
 
 
-
+client.on('message',message =>{
+  if(message.content.startsWith(prefix + 'setcolor')) {
+    if(message.author.bot || message.author.mys) return;
+    if(!message.member.hasPermission('MANAGE_ROLES')) return;
+    let color = message.content.split(" ").slice(2).join(" ");
+    if(!color) return message.channel.send(`**Pease Mention the role!**`);
+    let role = message.mentions.roles.first();
+    if(!role) return message.channel.send(`**I Can't find this role :x:**`);
+    role.setColor(color).catch(mys =>{message.channel.send(`**Error**`),message.react('❌')})
+    let t = new Discord.RichEmbed().setColor(color)
+    .setDescription(`**✅ Done set the color of the role ${role} to \`${color}\`**`)
+    message.channel.send(t)
+  }
+});
 
 
 
