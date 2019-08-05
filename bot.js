@@ -3562,13 +3562,6 @@ ${user.tag}
 
 
 
-client.on("message", message => {
-if(message.content.startsWith(prefix + "ani")) {
-let emojilist message.guild.emojis.filter(emoji => emoji.animated === true).map(emoji => `${emoji.toString()} ${emoji.name} ${emoji.id}`).join(" ");
-message.channel.send(emojilist);
-}
-})
-
 
 
 
