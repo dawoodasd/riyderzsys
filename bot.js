@@ -3553,5 +3553,56 @@ ${user.tag}
 };
 
 
+
+
+
+
+
+
+
+
+
+client.on("message", message => {
+if(message.content.startsWith(prefix + "ani")) {
+let emojilist message.guild.emojis.filter(emoji => emoji.animated === true).map(emoji => `${emoji.toString()} ${emoji.name} ${emoji.id}`).join(" ");
+message.channel.send(emojilist);
+}
+})
+
+
+
+
+client.on('message', async message => {
+    if(message.content.startsWith(prefix + "iinvite")) {
+        const invite = `**Invite: [No Any Perms](${await client.generateInvite()})\nInvite: [Administrator Perm](${await client.generateInvite(['ADMINISTRATOR'])})**`;
+        message.channel.send(invite)
+    }
+})
+
+
+
+
+
+
+
+client.on('message', message => {
+    if (message.content.startsWith(prefix +"pping")) {
+    message.channel.send("Wait please for pinging ........").then(me => {
+        let ping = me.createdTimestamp - message.createdTimestamp
+        let options = ["Good Ping asnwer wiht `No` or `Yes`", "Please tell me what is the wrong with my ping", "I hope it isn't bad", "ohhhh good", "oh my god this is my ping ?"]
+        let reply = options[Math.floor(Math.random() * options.length)]
+
+        me.edit(`${reply}: \`\`\`js\n Bot Latency: ${ping} |~~| API Latency: ${Math.round(client.ping)}\`\`\` `)
+    })
+    }
+    
+                                                                
+});
+
+
+
+
+
+
 client.login(process.env.BOT_TOKEN);
 
