@@ -3593,6 +3593,43 @@ client.on('message', message => {
 });
 
 
+client.on('message', message =>{
+  let command = message.content.split(" ")[0];
+  if (command == prefix + "ipunban") {
+  if(!message.member.hasPermission('BAN_MEMBERS')) return;
+  let args = message.content.split(" ").slice(1).join(" ");
+  if(args == 'all') {message.guild.fetchBans().then(zg => {
+  zg.forEach(NoNo => {message.guild.unban(NoNo);})});
+  return message.channel.send('**✅ Unbanned all members **')}
+  if(!args) return message.channel.send('**Please Type the member ID / all**');
+  message.guild.unban(args).then(m =>{message.channel.send(`**✅ Unbanned ${m.username}**`);
+  }).catch(stry =>{message.channel.send(`**🙄 - I can't find \`${args}\` in the ban list**`)});
+  }});
+
+
+
+
+
+
+
+
+client.on('message',message =>{
+let command = message.content.split(" ")[0];
+if (command == prefix + "nick") {
+if(!message.member.hasPermission('MANAGE_NICKNAMES')) return message.channel.send(`You Don't has premisson`)
+if(!message.guild.member(client.user).hasPermission('MANAGE_NICKNAMES')) return message.channel.send(`**I Don\'t have \`MANAGE_NICKNAMES\` Permission**`)
+var user = message.guild.members.get(message.content.split(" ")[1]) || message.mentions.members.first();
+let MrNono = message.content.split(" ").slice(2).join(" ");
+if(!user) return message.channel.send(`**:rolling_eyes: I can't find this member**`);
+if(!MrNono) {
+user.setNickname("",`By : ${message.author.tag}`)
+.catch(MrNoNo =>{});
+return message.channel.send(`**✅ ${user}'s nick has been reset.**`);
+}user.setNickname(MrNono,`By : ${message.author.tag}`)
+.catch(NoNo =>{});
+message.channel.send(`✅ Done changed ${user} nickname to **\`${MrNono}\`**`);}});
+
+
 
 
 
